@@ -1,12 +1,13 @@
 package at.libgdx.workshop.game;
 
-import at.libgdx.workshop.utils.Assets;
+import at.libgdx.workshop.game.entities.BasicBlock;
 import at.libgdx.workshop.utils.Constants;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
+
+import static at.libgdx.workshop.game.entities.BasicBlock.BasicBlockType;
 
 /**
  * Created by Lukas on 11.04.2015.
@@ -15,7 +16,7 @@ public class WorldRenderer implements Disposable {
     private OrthographicCamera camera;
     private SpriteBatch batch;
     private WorldController worldController;
-    private TextureRegion texture;
+    private BasicBlock block;
 
     public WorldRenderer(WorldController worldController) {
         this.worldController = worldController;
@@ -27,14 +28,14 @@ public class WorldRenderer implements Disposable {
         camera = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
         camera.position.set(0, 0, 0);
         camera.update();
-        texture = Assets.getInstance(new AssetManager()).findRegion("dirtMid");
+        block = new BasicBlock(new Vector2(0, 0), BasicBlockType.BlockGrass);
     }
 
     public void render() {
         worldController.cameraHelper.applyTo(camera);
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        batch.draw(texture, 0, 0, 1, 1);
+        block.render(batch);
         batch.end();
 
     }
