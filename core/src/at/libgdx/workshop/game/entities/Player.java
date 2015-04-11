@@ -15,6 +15,7 @@ public class Player extends GameObject {
     private Body b2Body;
 
     public Player(Vector2 position, World b2World) {
+        super();
         this.b2World = b2World;
         this.position = position;
         init();
@@ -60,7 +61,6 @@ public class Player extends GameObject {
 
     @Override
     public void render(SpriteBatch batch) {
-        System.out.println(position == null);
         batch.draw(texture,
                 position.x - dimension.x / 2, position.y - dimension.y / 2,
                 origin.x, origin.y,

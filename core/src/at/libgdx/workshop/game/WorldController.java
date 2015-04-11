@@ -15,6 +15,7 @@ public class WorldController extends InputAdapter {
     public CameraHelper cameraHelper;
     public Player player;
     private World b2World;
+    private boolean debug = true;
 
     public WorldController() {
         init();
@@ -44,5 +45,13 @@ public class WorldController extends InputAdapter {
                 break;
         }
         return true;
+    }
+
+    public boolean isDebug() {
+        return debug;
+    }
+
+    public World getB2World() {
+        return b2World;
     }
 }
