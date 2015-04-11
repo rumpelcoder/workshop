@@ -5,6 +5,6 @@ package at.libgdx.workshop.utils;
  */
 public class Constants {
     //5 Meters
-    public static final float WIEWPORT_WIDTH = 5.0f;
-    public static final float WIEWPORT_HEIGHT = 5.0f;
+    public static final float VIEWPORT_WIDTH = 5.0f;
+    public static final float VIEWPORT_HEIGHT = 5.0f;
 }
