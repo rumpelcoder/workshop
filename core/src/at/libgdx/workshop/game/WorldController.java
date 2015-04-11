@@ -27,6 +27,7 @@ public class WorldController extends InputAdapter {
         cameraHelper = new CameraHelper();
         b2World = new World(new Vector2(0, -9.81f), true);
         player = new Player(new Vector2(0.5f, 1.5f), b2World);
+        cameraHelper.setTarget(player.getBody());
         level = new Level(b2World);
     }
 

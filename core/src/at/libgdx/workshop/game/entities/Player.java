@@ -124,4 +124,8 @@ public class Player extends GameObject {
             }
         }, b2Body.getWorldCenter(), new Vector2(b2Body.getWorldCenter().x, b2Body.getWorldCenter().y - 0.2f));
     }
+
+    public Body getBody() {
+        return b2Body;
+    }
 }
