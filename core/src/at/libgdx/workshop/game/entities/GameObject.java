@@ -20,6 +20,7 @@ public abstract class GameObject {
         position = new Vector2();
         dimension = new Vector2(1, 1);
         origin = new Vector2();
+        scale = new Vector2(1, 1);
         rotation = 0;
         assets = Assets.getInstance(new AssetManager());
     }
