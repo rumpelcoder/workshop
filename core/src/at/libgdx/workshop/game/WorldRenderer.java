@@ -30,6 +30,7 @@ public class WorldRenderer implements Disposable {
     }
 
     public void render() {
+        worldController.cameraHelper.applyTo(camera);
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(texture, 0, 0, 1, 1);
