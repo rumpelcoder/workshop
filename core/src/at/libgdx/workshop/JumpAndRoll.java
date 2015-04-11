@@ -29,4 +29,14 @@ public class JumpAndRoll extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         worldRenderer.render();
     }
+
+    @Override
+    public void resize(int width, int height) {
+        worldRenderer.resize(width, height);
+    }
+
+    @Override
+    public void dispose() {
+        worldRenderer.dispose();
+    }
 }
