@@ -1,8 +1,9 @@
 package at.libgdx.workshop.game;
 
+import at.libgdx.workshop.utils.Assets;
 import at.libgdx.workshop.utils.Constants;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Disposable;
@@ -26,7 +27,7 @@ public class WorldRenderer implements Disposable {
         camera = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
         camera.position.set(0, 0, 0);
         camera.update();
-        texture = new TextureRegion(new Texture("badlogic.jpg"));
+        texture = Assets.getInstance(new AssetManager()).findRegion("dirtMid");
     }
 
     public void render() {
