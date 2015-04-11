@@ -2,7 +2,9 @@ package at.libgdx.workshop.game;
 
 import at.libgdx.workshop.utils.Constants;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Disposable;
 
 /**
@@ -12,6 +14,7 @@ public class WorldRenderer implements Disposable {
     private OrthographicCamera camera;
     private SpriteBatch batch;
     private WorldController worldController;
+    private TextureRegion texture;
 
     public WorldRenderer(WorldController worldController) {
         this.worldController = worldController;
@@ -23,9 +26,14 @@ public class WorldRenderer implements Disposable {
         camera = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
         camera.position.set(0, 0, 0);
         camera.update();
+        texture = new TextureRegion(new Texture("badlogic.jpg"));
     }
 
     public void render() {
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        batch.draw(texture, 0, 0, 1, 1);
+        batch.end();
 
     }
 
