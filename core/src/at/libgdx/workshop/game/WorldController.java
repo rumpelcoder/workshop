@@ -15,6 +15,7 @@ public class WorldController extends InputAdapter {
     public CameraHelper cameraHelper;
     public Player player;
     private World b2World;
+    private Level level;
     private boolean debug = true;
 
     public WorldController() {
@@ -25,13 +26,15 @@ public class WorldController extends InputAdapter {
         Gdx.input.setInputProcessor(this);
         cameraHelper = new CameraHelper();
         b2World = new World(new Vector2(0, -9.81f), true);
-        player = new Player(new Vector2(0, 0), b2World);
+        player = new Player(new Vector2(0.5f, 1.5f), b2World);
+        level = new Level(b2World);
     }
 
     public void update(float deltaTime) {
         cameraHelper.update(deltaTime);
         b2World.step(1 / 60f, 3, 8); //timeStep, velocityIteration, positionIteration
         player.update(deltaTime);
+        level.update(deltaTime);
     }
 
     @Override
@@ -53,5 +56,9 @@ public class WorldController extends InputAdapter {
 
     public World getB2World() {
         return b2World;
+    }
+
+    public Level getLevel() {
+        return level;
     }
 }
