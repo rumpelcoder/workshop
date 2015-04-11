@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.*;
  * Created by Lukas on 11.04.2015.
  */
 public class Player extends GameObject {
+    public static final float JUMP_FORCE = 9f;
     private static final float ACCELERATION = 0.5f;
     private static final float MAX_SPEED = 3f;
     private TextureRegion texture;
@@ -17,6 +18,7 @@ public class Player extends GameObject {
     private Body b2Body;
     private boolean left;
     private boolean right;
+    private boolean touchingGround;
 
     public Player(Vector2 position, World b2World) {
         super();
@@ -75,6 +77,7 @@ public class Player extends GameObject {
 
 
     public void update(float deltaTime) {
+        touchingGround = false;
         move();
         position = b2Body.getPosition();
         rotation = b2Body.getAngle() * MathUtils.radiansToDegrees;
@@ -99,5 +102,26 @@ public class Player extends GameObject {
 
     public void setRight(boolean right) {
         this.right = right;
+    }
+
+    public void jump() {
+        testGround();
+        if (touchingGround) {
+            b2Body.applyForceToCenter(0, JUMP_FORCE, true);
+        }
+    }
+
+    public void testGround() {
+        b2World.rayCast(new RayCastCallback() {
+            @Override
+            public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
+                if (fixture != null) {
+                    if (fraction < 0.8f) {
+                        touchingGround = true;
+                    }
+                }
+                return 0;
+            }
+        }, b2Body.getWorldCenter(), new Vector2(b2Body.getWorldCenter().x, b2Body.getWorldCenter().y - 0.2f));
     }
 }

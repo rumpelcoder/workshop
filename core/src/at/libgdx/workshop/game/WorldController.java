@@ -55,6 +55,10 @@ public class WorldController extends InputAdapter {
             case Input.Keys.D:
                 debug = !debug;
                 break;
+            case Input.Keys.SPACE:
+            case Input.Keys.UP:
+                player.jump();
+                break;
         }
         return true;
     }
