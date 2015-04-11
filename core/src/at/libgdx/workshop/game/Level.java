@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import java.util.ArrayList;
 import java.util.List;
 
+import static at.libgdx.workshop.game.entities.BasicBlock.BasicBlockType.BlockDirt;
 import static at.libgdx.workshop.game.entities.BasicBlock.BasicBlockType.BlockGrass;
 
 /**
@@ -25,7 +26,12 @@ public class Level {
 
     private void init() {
         gameObjects = new ArrayList<GameObject>();
-        gameObjects.add(new BasicBlock(new Vector2(0, 0), BlockGrass, b2World));
+        for (int i = -5; i < 5; i++) {
+            gameObjects.add(new BasicBlock(new Vector2(i, -1), BlockGrass, b2World));
+            gameObjects.add(new BasicBlock(new Vector2(i, -2), BlockDirt, b2World));
+            gameObjects.add(new BasicBlock(new Vector2(i, -3), BlockDirt, b2World));
+            gameObjects.add(new BasicBlock(new Vector2(i, -4), BlockDirt, b2World));
+        }
 
 
     }
