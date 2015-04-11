@@ -10,9 +10,13 @@ import com.badlogic.gdx.physics.box2d.*;
  * Created by Lukas on 11.04.2015.
  */
 public class Player extends GameObject {
+    private static final float ACCELERATION = 0.5f;
+    private static final float MAX_SPEED = 3f;
     private TextureRegion texture;
     private World b2World;
     private Body b2Body;
+    private boolean left;
+    private boolean right;
 
     public Player(Vector2 position, World b2World) {
         super();
@@ -71,7 +75,29 @@ public class Player extends GameObject {
 
 
     public void update(float deltaTime) {
+        move();
         position = b2Body.getPosition();
         rotation = b2Body.getAngle() * MathUtils.radiansToDegrees;
+    }
+
+    public void move() {
+        Vector2 toApply = new Vector2();
+        if (left) {
+            toApply.x = -ACCELERATION;
+        } else if (right) {
+            toApply.x = ACCELERATION;
+        }
+        if ((b2Body.getLinearVelocity().x > MAX_SPEED && toApply.x > 0) || (b2Body.getLinearVelocity().x < -MAX_SPEED && toApply.x < 0)) {
+            toApply.x = 0;
+        }
+        b2Body.applyForceToCenter(toApply, true);
+    }
+
+    public void setLeft(boolean left) {
+        this.left = left;
+    }
+
+    public void setRight(boolean right) {
+        this.right = right;
     }
 }

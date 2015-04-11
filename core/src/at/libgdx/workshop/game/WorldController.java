@@ -46,8 +46,30 @@ public class WorldController extends InputAdapter {
             case Input.Keys.MINUS:
                 cameraHelper.addZoom(0.2f);
                 break;
+            case Input.Keys.LEFT:
+                player.setLeft(true);
+                break;
+            case Input.Keys.RIGHT:
+                player.setRight(true);
+                break;
+            case Input.Keys.D:
+                debug = !debug;
+                break;
         }
         return true;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        switch (keycode) {
+            case Input.Keys.LEFT:
+                player.setLeft(false);
+                break;
+            case Input.Keys.RIGHT:
+                player.setRight(false);
+                break;
+        }
+        return false;
     }
 
     public boolean isDebug() {
