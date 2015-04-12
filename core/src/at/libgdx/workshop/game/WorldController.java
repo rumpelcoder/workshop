@@ -40,6 +40,9 @@ public class WorldController extends InputAdapter {
         }
         player.update(deltaTime);
         level.update(deltaTime);
+        if (player.getBody().getPosition().y < -3) {
+            reset = true;
+        }
     }
 
     private void reset() {
