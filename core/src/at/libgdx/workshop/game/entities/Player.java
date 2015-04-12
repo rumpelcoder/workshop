@@ -1,5 +1,7 @@
 package at.libgdx.workshop.game.entities;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -19,6 +21,7 @@ public class Player extends GameObject {
     private boolean left;
     private boolean right;
     private boolean touchingGround;
+    private Sound sound;
 
     public Player(Vector2 position, World b2World) {
         super();
@@ -33,6 +36,7 @@ public class Player extends GameObject {
         origin.x = dimension.x / 2;
         origin.y = dimension.y / 2;
         texture = assets.findRegion("player");
+        sound = Gdx.audio.newSound(Gdx.files.internal("bounce.mp3"));
         initPhysics();
     }
 
@@ -107,6 +111,7 @@ public class Player extends GameObject {
     public void jump() {
         testGround();
         if (touchingGround) {
+            sound.play();
             b2Body.applyForceToCenter(0, JUMP_FORCE, true);
         }
     }
