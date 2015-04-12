@@ -1,6 +1,7 @@
 package at.libgdx.workshop.game;
 
 import at.libgdx.workshop.game.entities.BasicBlock;
+import at.libgdx.workshop.game.entities.Coin;
 import at.libgdx.workshop.game.entities.GameObject;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -16,6 +17,7 @@ import static at.libgdx.workshop.game.entities.BasicBlock.BasicBlockType.*;
  */
 public class Level {
     List<GameObject> gameObjects;
+    private List<Coin> coins;
     private World b2World;
 
     public Level(World b2World) {
@@ -25,6 +27,7 @@ public class Level {
 
     private void init() {
         gameObjects = new ArrayList<GameObject>();
+        coins = new ArrayList<Coin>();
         for (int i = -5; i < 5; i++) {
             gameObjects.add(new BasicBlock(new Vector2(i, -1), BlockGrass, b2World));
             gameObjects.add(new BasicBlock(new Vector2(i, -2), BlockDirt, b2World));
@@ -39,10 +42,16 @@ public class Level {
         gameObjects.add(new BasicBlock(new Vector2(7, 0), BlockSlope, b2World, true));
         gameObjects.add(new BasicBlock(new Vector2(7, -1), BlockSlopeStart, b2World, true));
 
+        Coin c = new Coin(new Vector2(2.2f, 0.1f));
+        gameObjects.add(c);
+        coins.add(c);
     }
 
     public void render(SpriteBatch batch) {
         for (GameObject gameObject : gameObjects) {
+            gameObject.render(batch);
+        }
+        for (GameObject gameObject : coins) {
             gameObject.render(batch);
         }
     }
