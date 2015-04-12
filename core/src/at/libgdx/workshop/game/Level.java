@@ -9,8 +9,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import java.util.ArrayList;
 import java.util.List;
 
-import static at.libgdx.workshop.game.entities.BasicBlock.BasicBlockType.BlockDirt;
-import static at.libgdx.workshop.game.entities.BasicBlock.BasicBlockType.BlockGrass;
+import static at.libgdx.workshop.game.entities.BasicBlock.BasicBlockType.*;
 
 /**
  * Created by Lukas on 11.04.2015.
@@ -33,6 +32,12 @@ public class Level {
             gameObjects.add(new BasicBlock(new Vector2(i, -4), BlockDirt, b2World));
         }
 
+        gameObjects.add(new BasicBlock(new Vector2(5, 0), BlockSlope, b2World));
+        gameObjects.add(new BasicBlock(new Vector2(5, -1), BlockSlopeStart, b2World));
+        gameObjects.add(new BasicBlock(new Vector2(6, 0), BlockGrass, b2World));
+        gameObjects.add(new BasicBlock(new Vector2(6, -1), BlockDirt, b2World));
+        gameObjects.add(new BasicBlock(new Vector2(7, 0), BlockSlope, b2World, true));
+        gameObjects.add(new BasicBlock(new Vector2(7, -1), BlockSlopeStart, b2World, true));
 
     }
 
