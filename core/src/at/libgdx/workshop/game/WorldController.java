@@ -21,7 +21,7 @@ public class WorldController extends InputAdapter {
     int coinCount = 0;
     private World b2World;
     private Level level;
-    private boolean debug = true;
+    private boolean debug = false;
     private boolean reset;
 
     public WorldController() {
@@ -144,6 +144,31 @@ public class WorldController extends InputAdapter {
                 break;
         }
         return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        if (screenY < Gdx.graphics.getHeight() / 4) {
+            reset();
+        }
+        if (screenX < Gdx.graphics.getWidth() / 3) {
+            player.setLeft(true);
+        } else if (screenX > (Gdx.graphics.getWidth() / 3) * 2) {
+            player.setRight(true);
+        } else {
+            player.jump();
+        }
+        return true;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        if (screenX < Gdx.graphics.getWidth() / 3) {
+            player.setLeft(false);
+        } else if (screenX > (Gdx.graphics.getWidth() / 3) * 2) {
+            player.setRight(false);
+        }
+        return true;
     }
 
     public boolean isDebug() {
