@@ -3,6 +3,7 @@ package at.libgdx.workshop.game;
 import at.libgdx.workshop.game.entities.BasicBlock;
 import at.libgdx.workshop.game.entities.Coin;
 import at.libgdx.workshop.game.entities.GameObject;
+import at.libgdx.workshop.game.entities.JumpPad;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -28,6 +29,7 @@ public class Level {
     private void init() {
         gameObjects = new ArrayList<GameObject>();
         coins = new ArrayList<Coin>();
+        gameObjects.add(new JumpPad(new Vector2(4, 0), b2World));
         for (int i = -5; i < 5; i++) {
             gameObjects.add(new BasicBlock(new Vector2(i, -1), BlockGrass, b2World));
             gameObjects.add(new BasicBlock(new Vector2(i, -2), BlockDirt, b2World));
