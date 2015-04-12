@@ -17,11 +17,11 @@ public class WorldController extends InputAdapter {
     public CameraHelper cameraHelper;
     public Player player;
     public long timeElapsed;
+    int coinCount = 0;
     private World b2World;
     private Level level;
     private boolean debug = true;
     private boolean reset;
-    private int coinCount = 0;
 
     public WorldController() {
         init();
