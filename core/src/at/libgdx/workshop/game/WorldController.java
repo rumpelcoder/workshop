@@ -2,13 +2,14 @@ package at.libgdx.workshop.game;
 
 import at.libgdx.workshop.game.entities.Coin;
 import at.libgdx.workshop.game.entities.Player;
+import at.libgdx.workshop.game.entities.Spikes;
 import at.libgdx.workshop.utils.CameraHelper;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
 
 /**
  * Created by Lukas on 11.04.2015.
@@ -34,6 +35,32 @@ public class WorldController extends InputAdapter {
         player = new Player(new Vector2(0.5f, 1.5f), b2World);
         cameraHelper.setTarget(player.getBody());
         level = new Level(b2World);
+        b2World.setContactListener(new ContactListener() {
+            @Override
+            public void beginContact(Contact contact) {
+                Fixture fA = contact.getFixtureA();
+                Fixture fB = contact.getFixtureB();
+                if (fB.getBody().getUserData() instanceof Player && fA.getBody().getUserData() instanceof Spikes ||
+                        fA.getBody().getUserData() instanceof Player && fB.getBody().getUserData() instanceof Spikes) {
+                    reset = true;
+                }
+            }
+
+            @Override
+            public void endContact(Contact contact) {
+
+            }
+
+            @Override
+            public void preSolve(Contact contact, Manifold oldManifold) {
+
+            }
+
+            @Override
+            public void postSolve(Contact contact, ContactImpulse impulse) {
+
+            }
+        });
     }
 
     public void update(float deltaTime) {
