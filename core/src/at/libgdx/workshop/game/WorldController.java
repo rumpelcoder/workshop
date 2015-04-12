@@ -17,6 +17,7 @@ public class WorldController extends InputAdapter {
     private World b2World;
     private Level level;
     private boolean debug = true;
+    private boolean reset;
 
     public WorldController() {
         init();
@@ -34,8 +35,18 @@ public class WorldController extends InputAdapter {
     public void update(float deltaTime) {
         cameraHelper.update(deltaTime);
         b2World.step(1 / 60f, 3, 8); //timeStep, velocityIteration, positionIteration
+        if (reset) {
+            reset();
+        }
         player.update(deltaTime);
         level.update(deltaTime);
+    }
+
+    private void reset() {
+        reset = false;
+        player.getBody().setTransform(new Vector2(0.5f, 1.5f), 0);
+        player.getBody().setLinearVelocity(new Vector2(0, 0));
+        player.getBody().setAngularVelocity(0);
     }
 
     @Override
@@ -59,6 +70,9 @@ public class WorldController extends InputAdapter {
             case Input.Keys.SPACE:
             case Input.Keys.UP:
                 player.jump();
+                break;
+            case Input.Keys.R:
+                reset = true;
                 break;
         }
         return true;
