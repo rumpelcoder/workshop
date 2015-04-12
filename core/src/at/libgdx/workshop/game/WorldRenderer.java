@@ -2,18 +2,23 @@ package at.libgdx.workshop.game;
 
 import at.libgdx.workshop.utils.Constants;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.Disposable;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Lukas on 11.04.2015.
  */
 public class WorldRenderer implements Disposable {
     private OrthographicCamera camera;
+    private OrthographicCamera cameraGUI;
     private SpriteBatch batch;
     private WorldController worldController;
     private Box2DDebugRenderer debugRenderer;
+    private BitmapFont font;
 
     public WorldRenderer(WorldController worldController) {
         this.worldController = worldController;
@@ -26,6 +31,23 @@ public class WorldRenderer implements Disposable {
         camera = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
         camera.position.set(0, 0, 0);
         camera.update();
+
+        //GUI camera
+        cameraGUI = new OrthographicCamera(Constants.VIEWPORT_GUI_WIDTH, Constants.VIEWPORT_GUI_HEIGHT);
+        cameraGUI.position.set(0, 0, 0);
+        cameraGUI.setToOrtho(true); //flip y-axis
+        cameraGUI.update();
+
+        font = new BitmapFont(true); //default 15pt Arial
+    }
+
+    public void renderGUI(SpriteBatch batch) {
+        batch.setProjectionMatrix(cameraGUI.combined);
+        batch.begin();
+        String mmss = String.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(worldController.timeElapsed) % TimeUnit.HOURS.toMinutes(1),
+                TimeUnit.MILLISECONDS.toSeconds(worldController.timeElapsed) % TimeUnit.MINUTES.toSeconds(1));
+        font.draw(batch, mmss, 10, 10);
+        batch.end();
     }
 
     public void render() {
@@ -35,6 +57,7 @@ public class WorldRenderer implements Disposable {
         worldController.getLevel().render(batch);
         worldController.player.render(batch);
         batch.end();
+        renderGUI(batch);
         if (worldController.isDebug()) {
             debugRenderer.render(worldController.getB2World(), camera.combined);
         }

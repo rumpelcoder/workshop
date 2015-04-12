@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.World;
 public class WorldController extends InputAdapter {
     public CameraHelper cameraHelper;
     public Player player;
+    public long timeElapsed;
     private World b2World;
     private Level level;
     private boolean debug = true;
@@ -33,6 +34,7 @@ public class WorldController extends InputAdapter {
     }
 
     public void update(float deltaTime) {
+        timeElapsed += deltaTime * 1000;
         cameraHelper.update(deltaTime);
         b2World.step(1 / 60f, 3, 8); //timeStep, velocityIteration, positionIteration
         if (reset) {
@@ -50,6 +52,7 @@ public class WorldController extends InputAdapter {
         player.getBody().setTransform(new Vector2(0.5f, 1.5f), 0);
         player.getBody().setLinearVelocity(new Vector2(0, 0));
         player.getBody().setAngularVelocity(0);
+        timeElapsed = 0;
     }
 
     @Override
