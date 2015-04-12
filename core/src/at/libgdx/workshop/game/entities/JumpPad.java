@@ -79,7 +79,7 @@ public class JumpPad extends GameObject {
     @Override
     public void render(SpriteBatch batch) {
         if (triggered) {
-            batch.draw(textureUp, position.x, position.y, dimension.x, dimension.y * 2);
+            batch.draw(textureUp, position.x, position.y, dimension.x, dimension.y * 1.5f);
         } else {
             batch.draw(textureDown, position.x, position.y, dimension.x, dimension.y);
         }
