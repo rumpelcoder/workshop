@@ -51,9 +51,6 @@ public class Level {
         for (GameObject gameObject : gameObjects) {
             gameObject.render(batch);
         }
-        for (GameObject gameObject : coins) {
-            gameObject.render(batch);
-        }
     }
 
     public void update(float deltaTime) {
