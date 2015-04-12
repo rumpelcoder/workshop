@@ -62,4 +62,8 @@ public class Level {
     public void reset() {
         init();
     }
+
+    public List<Coin> getCoins() {
+        return coins;
+    }
 }

@@ -1,10 +1,12 @@
 package at.libgdx.workshop.game;
 
+import at.libgdx.workshop.game.entities.Coin;
 import at.libgdx.workshop.game.entities.Player;
 import at.libgdx.workshop.utils.CameraHelper;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -19,6 +21,7 @@ public class WorldController extends InputAdapter {
     private Level level;
     private boolean debug = true;
     private boolean reset;
+    private int coinCount = 0;
 
     public WorldController() {
         init();
@@ -45,6 +48,7 @@ public class WorldController extends InputAdapter {
         if (player.getBody().getPosition().y < -3) {
             reset = true;
         }
+        testCoins();
     }
 
     private void reset() {
@@ -53,6 +57,24 @@ public class WorldController extends InputAdapter {
         player.getBody().setLinearVelocity(new Vector2(0, 0));
         player.getBody().setAngularVelocity(0);
         timeElapsed = 0;
+        coinCount = 0;
+    }
+
+    private void testCoins() {
+        Rectangle playerRect = new Rectangle();
+        Rectangle coinRect = new Rectangle();
+        playerRect.set(player.position.x, player.position.y, player.dimension.x, player.dimension.y);
+        for (Coin coin : level.getCoins()) {
+            if (coin.isCollected()) {
+                continue;
+            }
+            coinRect.set(coin.position.x, coin.position.y, coin.dimension.x, coin.dimension.y);
+            if (!playerRect.overlaps(coinRect)) {
+                continue;
+            }
+            coin.setCollected(true);
+            coinCount += 1;
+        }
     }
 
     @Override
